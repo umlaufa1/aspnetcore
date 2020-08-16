@@ -44,11 +44,8 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Certificates
                 {
                     var certificateChainPath = Path.Combine(HostEnvironment.ContentRootPath, certInfo.ChainPath);
 
-                    if (File.Exists(certificateChainPath))
-                    {
-                        intermediates = new X509Certificate2Collection();
-                        intermediates.ImportFromPemFile(certificateChainPath);
-                    }
+                    intermediates = new X509Certificate2Collection();
+                    intermediates.ImportFromPemFile(certificateChainPath);
                 }
 
                 if (certInfo.KeyPath != null)
@@ -73,7 +70,7 @@ namespace Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Certificates
                             return (PersistKey(certificate), intermediates);
                         }
 
-                        return (certificate, null);
+                        return (certificate, intermediates);
                     }
                     else
                     {
