@@ -34,8 +34,7 @@
         * when a project is a test or sample project
         * when a package is releasing a new patch (we like to update external dependencies in patches when possible)
     -->
-    <UseLatestPackageReferences
-        Condition=" '$(UseLatestPackageReferences)' == '' AND '$(IsServicingBuild)' != 'true' ">true</UseLatestPackageReferences>
+    <UseLatestPackageReferences Condition=" '$(UseLatestPackageReferences)' == '' ">true</UseLatestPackageReferences>
     <UseLatestPackageReferences
         Condition=" '$(UseLatestPackageReferences)' == '' AND '$(IsImplementationProject)' != 'true' ">true</UseLatestPackageReferences>
     <UseLatestPackageReferences
@@ -193,7 +192,7 @@
 
     <!-- Resolve references from BaselinePackageReference for servicing builds in corner cases. May be unused. -->
     <JoinItems Left="@(Reference)" Right="@(BaselinePackageReference)" LeftMetadata="*" RightMetadata="Version"
-        Condition=" '$(IsServicingBuild)' == 'true' OR '$(UseLatestPackageReferences)' != 'true' ">
+        Condition=" '$(UseLatestPackageReferences)' != 'true' ">
       <Output TaskParameter="JoinResult" ItemName="_BaselinePackageReferenceWithVersion" />
     </JoinItems>
 
